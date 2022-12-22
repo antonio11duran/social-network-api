@@ -93,7 +93,7 @@ const thoughts = [
   "Poker",
   "Deliveries",
 ];
-const reactions = [];
+const reactions = ["💔", "❤️", "👍", "👎", "❗️"];
 
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 

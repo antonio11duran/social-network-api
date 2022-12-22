@@ -20,7 +20,7 @@ connection.once("open", async () => {
   const usersArray = [];
   const thoughtsArray = [];
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 5; i++) {
     const thoughts = getRandomThought(2);
 
     const username = getRandomUsername();
@@ -33,7 +33,7 @@ connection.once("open", async () => {
     });
 
     const thoughtText = getRandomThoughtBody();
-    const usernameThought = getRandomArrItem(users);
+    const usernameThought = getRandomArrItem(usersArray);
     const reactions = getRandomReactions(2);
 
     thoughtsArray.push({
