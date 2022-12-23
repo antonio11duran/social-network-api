@@ -35,7 +35,6 @@ module.exports = {
           ? res.status(404).json({ message: "No thought with that ID" })
           : res.json({ message: "Thought deleted!" })
       )
-      .then(() => res.json({ message: "No thought with that ID" }))
       .catch((err) => res.status(500).json(err));
   },
   // update a thought
