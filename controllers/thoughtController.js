@@ -3,7 +3,7 @@ const { Thought, User } = require("../models");
 module.exports = {
   // get all thoughts
   getThoughts(req, res) {
-    Thought.find()
+    Thought.find({})
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
   },
@@ -12,7 +12,7 @@ module.exports = {
     Thought.findOne({ _id: req.params.thoughtId })
       .select("-__v")
       .then((thought) =>
-        !course
+        !thought
           ? res.status(404).json({ message: "No thought with that ID" })
           : res.json(thought)
       )
@@ -33,7 +33,7 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: "No thought with that ID" })
-          : User.deleteMany({ _id: { $in: thought.username } })
+          : res.json({ message: "Thought deleted!" })
       )
       .then(() => res.json({ message: "No thought with that ID" }))
       .catch((err) => res.status(500).json(err));
@@ -75,10 +75,8 @@ module.exports = {
       { $pull: { reaction: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
-      .then((thought) =>
-        !thought
-          ? res.status(404).json({ message: "No thought found with that ID" })
-          : res.json(thought)
+      .then(() =>
+        res.json({ message: "Reaction removed from corresponding thought!" })
       )
       .catch((err) => res.status(500).json(err));
   },

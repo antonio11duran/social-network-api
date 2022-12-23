@@ -6,6 +6,7 @@ const thoughtSchema = new Schema(
     thoughtText: {
       type: String,
       required: true,
+      min_length: 1,
       max_length: 280,
     },
     createdAt: {
@@ -13,8 +14,7 @@ const thoughtSchema = new Schema(
       default: Date.now(),
     },
     username: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
+      type: String,
       required: true,
     },
     reactions: [reactionSchema],
@@ -22,14 +22,16 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
+    id: false,
   }
 );
 // reactionCount virtual
-reactionSchema.virtual("reactionCount").get(function () {
+thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
-const Thought = model("thought", thoughtSchema);
+const Thought = model("Thought", thoughtSchema);
 
 module.exports = Thought;
